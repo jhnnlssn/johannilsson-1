@@ -30,10 +30,21 @@
 const contactLink = document.querySelector('#contact-link');
 const contactDiv = document.querySelector('#contact');
 
+contactLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  contactDiv.classList.toggle('hidden');
+  
+  // Add this block to scroll to the top when "About" is clicked
+  if (!contactDiv.classList.contains('hidden')) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+});
+
 document.addEventListener('click', (event) => {
-  if (event.target.closest('#contact') || event.target.closest('#contact-link')) {
-    contactDiv.classList.toggle('hidden');
-  } else {
+  if (!event.target.closest('#contact') && !event.target.closest('#contact-link')) {
     contactDiv.classList.add('hidden');
   }
 });
@@ -58,7 +69,7 @@ triggerModals.forEach(triggerModal => {
     // Create the close button
     const closeButton = document.createElement('button');
     closeButton.classList.add('close');
-    closeButton.innerHTML = 'X';
+    closeButton.innerHTML = '&#x2715;';
 
     // Create the iframe
     const iframe = document.createElement('iframe');
